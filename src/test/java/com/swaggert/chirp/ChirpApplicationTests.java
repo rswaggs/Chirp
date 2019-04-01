@@ -1,4 +1,4 @@
-package com.swaggert.chirp;
+package com.swaggert.Chirp;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
