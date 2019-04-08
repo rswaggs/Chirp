@@ -1,4 +1,4 @@
-package com.swaggert.Chirp;
+package com.swaggert.chirp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
