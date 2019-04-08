@@ -1,6 +1,10 @@
 Maybe helpful still:
 https://codesjava.com/jpa-2-overview-pdf
 
+Needed for reference still:
+https://www.baeldung.com/hibernate-one-to-many
+Search( many to one jap annoation )
+
 
 Development plan:
 1. Maven dependencies (DevTools, Lombok, Web, Rest Repositories, Thymeleaf, Security, JPA, MySQL)
