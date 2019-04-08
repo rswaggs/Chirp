@@ -1,15 +1,29 @@
+Maybe helpful still:
+https://codesjava.com/jpa-2-overview-pdf
+
+Needed for reference still:
+https://www.baeldung.com/hibernate-one-to-many
+Search( many to one jap annoation )
+
+
 Development plan:
-1. Decide between PostgreSQL and MySQL
-	- Work on data models and JPA queries that I may use
-2. Work on view pages with barebones content
-3. React
+1. Maven dependencies (DevTools, Lombok, Web, Rest Repositories, Thymeleaf, Security, JPA, MySQL)
+
+2. Work on Model component (primary guide I'm following: https://spring.io/guides/gs/accessing-data-mysql/)
+	- Using JPA annotations to create the data entities and Lombok to reduce the boilerplate
+	- *** ManyToOne and OneToMany mappings still ***
+	- Remember to change "spring.jpa.hibernate.ddl-auto" from "create" to "none", in the application.properties, after running the application once, as database structure objects will be created within the Java configuration files
+
+3. Work on the View component
+	- Work on view pages with barebones content
+4. React
 	- Start a react project and make a few file and components on what I imagine to 	work out well
-4. Work on the controller
-5. User REST APIs to pass data to the react components.
-6. Work on ensuring data security and proper login checks.
-6. Hopefully all of that wasn't too difficult. Now a few JUnit tests.
-7. Maybe simple tests with something like Selenium.
-8. Deploy JAR file on AWS with the help of more tutorials.
+5. Work on the controller
+6. User REST APIs to pass data to the react components.
+7. Work on ensuring data security and proper login checks.
+8. Hopefully all of that wasn't too difficult. Now a few JUnit tests.
+9. Maybe simple tests with something like Selenium.
+10. Deploy JAR file on AWS with the help of more tutorials.
 
 
 Pages:
@@ -20,27 +34,28 @@ main.html --> Feed of all audio uploads
 upload.html --> Upload audio clip
 profile.html --> Profile page to look at user details
 
-Databases:
+Database: Chirp
 CREATE TABLE Users (
-    PersonID int NOT NULL AUTO_INCREMENT,
-    Email varchar(50) NOT NULL,
-    Username varchar(50) NOT NULL,
-    Password varchar(50) NOT NULL,
-    PRIMARY KEY (PersonID)
+    Username VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+    Password VARCHAR(50) NOT NULL,
+    PRIMARY KEY (Username),
+    UNIQUE(Email),
+    CHECK (LENGTH(Password) > 7)
 );
 
 // Save file on disk and maintain reference
 CREATE TABLE AudioFiles (
-    AudioID int NOT NULL AUTO_INCREMENT,
-    FilePath varchar(50) NOT NULL,
+    AudioID INT NOT NULL AUTO_INCREMENT,
+    FilePath VARCHAR(70) NOT NULL,
     PRIMARY KEY (AudioID)
 );
 
 // Index for faster reading later
 CREATE TABLE Favourites (
-    PersonID int,
-    AudioID int,
-    CONSTRAINT Favourite PRIMARY KEY (PersonID, AutoID),
-    FOREIGN KEY (PersonID) REFERENCES Users(PersonID),
+    PersonID VARCHAR(50),
+    AudioID INT,
+    CONSTRAINT Favourite PRIMARY KEY (PersonID, AudioID),
+    FOREIGN KEY (PersonID) REFERENCES Users(Username),
     FOREIGN KEY (AudioID) REFERENCES AudioFiles(AudioID)
 );

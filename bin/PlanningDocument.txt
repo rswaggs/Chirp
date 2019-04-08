@@ -1,0 +1,48 @@
+Development plan:
+1. Decide between PostgreSQL and MySQL (recreate Maven file to reduce dependencies)
+	- Maven (DevTools, Lombok, Web, Rest Repositories, Thymeleaf, Security, JPA, (MySQL or PostgreSQL, maybe H2 in-memory database for faster development and testing)
+	- Work on data models and JPA queries that I may use
+2. Work on view pages with barebones content
+3. React
+	- Start a react project and make a few file and components on what I imagine to 	work out well
+4. Work on the controller
+5. User REST APIs to pass data to the react components.
+6. Work on ensuring data security and proper login checks.
+6. Hopefully all of that wasn't too difficult. Now a few JUnit tests.
+7. Maybe simple tests with something like Selenium.
+8. Deploy JAR file on AWS with the help of more tutorials.
+
+
+Pages:
+index.html --> Landing page
+login.htnl --> For entering your profile
+signup.html --> For creating an account
+main.html --> Feed of all audio uploads
+upload.html --> Upload audio clip
+profile.html --> Profile page to look at user details
+
+Database: Chirp
+CREATE TABLE Users (
+    Username VARCHAR(50) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+    Password VARCHAR(50) NOT NULL,
+    PRIMARY KEY (Username),
+    UNIQUE(Email),
+    CHECK (LENGTH(Password) > 7)
+);
+
+// Save file on disk and maintain reference
+CREATE TABLE AudioFiles (
+    AudioID INT NOT NULL AUTO_INCREMENT,
+    FilePath VARCHAR(70) NOT NULL,
+    PRIMARY KEY (AudioID)
+);
+
+// Index for faster reading later
+CREATE TABLE Favourites (
+    PersonID VARCHAR(50),
+    AudioID INT,
+    CONSTRAINT Favourite PRIMARY KEY (PersonID, AudioID),
+    FOREIGN KEY (PersonID) REFERENCES Users(Username),
+    FOREIGN KEY (AudioID) REFERENCES AudioFiles(AudioID)
+);
